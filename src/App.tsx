@@ -1,25 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Input from "./components/input";
+import Todo from "./components/todo";
+import HighlightOnRerender from "./redux/highlight-on-rerender";
+import useSelector from "./redux/use-selector";
 
 function App() {
+  const todos = useSelector((todos) => todos.ids);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <HighlightOnRerender>
+      <div className="app">
+        <header className="header">
+          <h1>Todos</h1>
+        </header>
+        <main>
+          <Input />
+          <div className="todos">
+            {todos.map((item) => (
+              <Todo key={item} id={item} />
+            ))}
+          </div>
+        </main>
+      </div>
+    </HighlightOnRerender>
   );
 }
 
